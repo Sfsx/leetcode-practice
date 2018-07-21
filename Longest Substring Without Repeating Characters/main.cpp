@@ -10,9 +10,9 @@ public:
 		int max = 0;
 		int c = 0;
 		hash[s[0]] = 0;
-		while (first < s.length()){
+		while (first < s.length()) {
 			it = hash.find(s[first]);
-			if ( it != hash.end() ) {
+			if (it != hash.end()) {
 				if (it->second > last)
 					last = it->second;
 				it->second = first;
