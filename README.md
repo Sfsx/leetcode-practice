@@ -1,2 +1,3 @@
-# my-leetcode
-arithmetic
+# leetcode-practic
+
+arithmetic practic
