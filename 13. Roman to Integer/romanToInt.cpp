@@ -27,4 +27,33 @@ public:
         }
         return res + index;
     }
+    int romanToInt2(string s) {
+        int res = 0;
+        int index = 0;
+        int prew = 0;
+        for(int i = 0; i < s.length();i++) {
+            if (s[i] == 'I') {
+                index = 1;
+            } else if (s[i] == 'V') {
+                index = 5;
+            } else if (s[i] == 'X') {
+                index = 10;
+            } else if (s[i] == 'L') {
+                index = 50;
+            } else if (s[i] == 'C') {
+                index = 100;
+            } else if (s[i] == 'D') {
+                index = 500;
+            } else if (s[i] == 'M') {
+                index = 1000;
+            }
+            if (prew >= index) {
+                res = res + prew;
+            } else {
+                res = res - prew;
+            }
+            prew = index;
+        }
+        return res + index;
+    }
 };
