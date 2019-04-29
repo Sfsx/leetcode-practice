@@ -81,4 +81,46 @@ public:
         }
         return false;
     }
+
+	vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> results;
+        
+        // Sorted: [-4,-1,-1,0,1,2,3,4]
+        sort(nums.begin(), nums.end());
+        
+        for (int i = 0; i < nums.size(); ++i) {
+            // front = i+1 instead of 0 ensures no reordered duplicate results
+            int front = i+1; 
+            int back = nums.size()-1;
+            int target = -nums[i];
+            
+            // Optimization: [1,2,3,4] w/ target -1 and beyond can never solve
+            if (target < 0)
+                break;
+            
+            while (front < back) {
+                int sum = nums[front]+nums[back];
+                
+                if (sum < target) { front++; continue; } // too small, make sum larger
+                if (sum > target) { back--; continue; } // too large, make sum smaller
+                
+                // Exact match found, insert triplet
+                results.push_back({nums[i], nums[front], nums[back]});
+                auto& result = results[results.size()-1];
+                
+                // Triplet[1] duplicate elimination: skip consecutive nums w/ same value
+                while (front+1 < nums.size() && nums[front+1] == result[1]) front++;
+                // Triplet[2] duplicate elimination: skip consecutive nums w/ same value
+                while (back-1 >= 0 && nums[back-1]  == result[2]) back--;
+                
+                // Advance
+                front++;
+            }
+            
+            // Triplet[0] duplicate elimination: skip consecutive nums w/ same value
+            while (i+1 < nums.size() && nums[i] == nums[i+1]) i++;
+        }
+        
+        return results;
+    }
 };
