@@ -1,73 +1,32 @@
-class Solution
-{
+class Solution {
   public:
-    vector<vector<int>> threeSum(vector<int> &nums)
-    {
-        vector<vector<int>> res;
-        vector<int> solution;
-        vector<int> positive;
-        vector<int> minus;
-        vector<int> zero;
-        int result;
-        int p = 0;
-        int m = 0;
-        int z = 0;
-        for (int n = 0; n < nums.size(); n++)
-        {
-            if (nums[n] > 0)
-            {
-                positive.push_back(nums[n]);
+    vector<vector<int>> threeSum(vector<int> &nums) {
+        vector<vector<int>> results;
+        sort(nums.begin, nums.end);
+
+        for(int i = 0; i < nums.length(); i++) {
+            int front = i + 1;
+            int back = nums.size() - 1;
+            int target = -nums[i];
+
+            if(target < 0) {
+                break;
             }
-            else if (nums[n] < 0)
-            {
-                minus.push_back(nums[n]);
+
+            while(front < back){
+                int sum = nums[front] + nums[back];
+
+                if (sum < target) { front++; continue; }
+                if (sum > target) { back--; continue; }
+
+                results.push_back({nums[i], nums[front], nums[back]});
+                auto& result = results[results.size() - 1];
+
+                while (front + 1 < nums.szie() - 1 && result[1] == nums[front + 1]) front++;
+                while (back - 1 > 0 && result[2] == nums[back - 1]) back--;
             }
-            else
-            {
-                zero.push_back(nums[n]);
-            }
-        }
-        sort(positive.begin(), positive.end());
-        sort(minus.begin(), minus.end());
-        if (positive.size() == 0 || minus.size() == 0)
-            return res;
-        for (p = 0; p < positive.size(); p++) {
-            if (positive[p] + minus[minus.size() - 1] > 0) break;
-            for (m = 0; m < minus.size(); m++) {
-                if (minus[m] + positive[p] < 0) break;
-                for (z = m + 1; z < minus.size(); z++) {
-                    result = positive[p] + minus[m] + minus[z];
-                    if (result == 0) {
-                        solution.push_back(positive[p]);
-                        solution.push_back(minus[m]);
-                        solution.push_back(minus[z]);
-                        res.push_back(solution);
-                        solution.clear()
-                    }
-                    else if (result < 0) {
-                        break;
-                    }
-                }
-            }
-        }
-        for (p = 0; p < positive.size(); p++) {
-            if (positive[p] + minus[minus.size() - 1] > 0) break;
-            for (m = 0; m < minus.size(); m++) {
-                if (minus[m] + positive[p] < 0) break;
-                for (z = m + 1; z < minus.size(); z++) {
-                    result = positive[p] + minus[m] + minus[z];
-                    if (result == 0) {
-                        solution.push_back(positive[p]);
-                        solution.push_back(minus[m]);
-                        solution.push_back(minus[z]);
-                        res.push_back(solution);
-                        solution.clear()
-                    }
-                    else if (result < 0) {
-                        break;
-                    }
-                }
-            }
+            
+            while(i + 1 < nums.size() && nums[i + 1] == nums[i]) i++;
         }
     }
 };
