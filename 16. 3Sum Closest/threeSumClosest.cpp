@@ -25,6 +25,7 @@ public:
                 sum = target;
                 break;
             }
+            // 找到最接近的值 直接跳出循环
             if (sum == target) { break; }
         }
         return sum;
