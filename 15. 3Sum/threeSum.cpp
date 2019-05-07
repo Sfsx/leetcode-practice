@@ -2,7 +2,7 @@ class Solution {
   public:
     vector<vector<int>> threeSum(vector<int> &nums) {
         vector<vector<int>> results;
-        sort(nums.begin, nums.end);
+        sort(nums.begin(), nums.end());
 
         for(int i = 0; i < nums.length(); i++) {
             int front = i + 1;
