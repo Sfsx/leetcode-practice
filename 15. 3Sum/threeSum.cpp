@@ -4,7 +4,7 @@ class Solution {
         vector<vector<int>> results;
         sort(nums.begin(), nums.end());
 
-        for(int i = 0; i < nums.length(); i++) {
+        for(int i = 0; i < nums.size(); ++i) {
             int front = i + 1;
             int back = nums.size() - 1;
             int target = -nums[i];
@@ -22,11 +22,15 @@ class Solution {
                 results.push_back({nums[i], nums[front], nums[back]});
                 auto& result = results[results.size() - 1];
 
-                while (front + 1 < nums.szie() - 1 && result[1] == nums[front + 1]) front++;
-                while (back - 1 > 0 && result[2] == nums[back - 1]) back--;
+                while (front + 1 < nums.size() && result[1] == nums[front + 1]) front++;
+                while (back - 1 >= 0 && result[2] == nums[back - 1]) back--;
+                
+                front++;
             }
             
             while(i + 1 < nums.size() && nums[i + 1] == nums[i]) i++;
         }
+
+        return results;
     }
 };
