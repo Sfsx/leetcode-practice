@@ -123,4 +123,31 @@ public:
         
         return results;
     }
+
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> res;
+        for(int i = 0, n = nums.size(); i < n-3; i++) {
+            if(i > 0 && nums[i] == nums[i-1]) continue;
+            if(nums[i]+nums[i+1]+nums[i+2]+nums[i+3]>target) break;
+            if(nums[i]+nums[n-3]+nums[n-2]+nums[n-1]<target) continue;
+            
+            for(int j = i + 1; j < nums.size()-2; j++) {
+                if(j > i+1 && nums[j] == nums[j-1]) continue;
+                if(nums[i]+nums[j]+nums[j+1]+nums[j+2]>target) break;
+                if(nums[i]+nums[j]+nums[n-2]+nums[n-1]<target) continue;
+                
+                int l = j+1, h = nums.size() -1, t = target - nums[j]-nums[i];
+                while(l < h) {
+                    if(l > j+1 && nums[l-1] == nums[l]) {l++; continue;}
+                    if(nums[l] + nums[h] > t) h--;
+                    else if(nums[l] + nums[h] < t) l++;
+                    else {
+                        res.push_back({nums[i],nums[j],nums[l++],nums[h--]});
+                    }
+                }
+            }
+        }
+        return res;
+    }
 };
