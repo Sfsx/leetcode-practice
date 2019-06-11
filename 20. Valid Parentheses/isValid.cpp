@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // 尽量不要嵌套 if，将嵌套 if 拉平能够提升速度
     bool isValid(string s) {
         stack<char> s1;
         s1.push('s');
